@@ -68,16 +68,38 @@ class BinarySearchTree {
     return null;
   }
 
-  remove(/* data */) {
-/*     let currTreeNode = this.treeRoot;
-    while (currTreeNode) {
-      if (currTreeNode.data === data) {
-        if (!currTreeNode.left && !currTreeNode.right) {
-          return currTreeNode = null;
+  remove(data) {
+    removeNode(this.treeRoot, data);
+    function minNode(node) {
+      while (node.left) {
+        node = node.left;
+      }
+      return node;
+    }
+    function removeNode(node, data) {
+      if (node === null) return null;
+      if (data === node.data) {
+        if (!node.left && !node.right) {
+          return null
         }
+        if (!node.left) {
+          return node.right;
+        }
+        if (!node.right) {
+          return node.left;
+        }
+        let tempTreeNode = minNode(node.right);
+        node.data = tempTreeNode.data;
+        node.right = removeNode(node.right, tempTreeNode.data);
+        return node;
+      } else if (data > node.data) {
+        node.right = removeNode(node.right, data);
+        return node;
+      } else {
+        node.left = removeNode(node.left, data);
+        return node;
       }
     }
-    return null; */
   }
 
   min() {
